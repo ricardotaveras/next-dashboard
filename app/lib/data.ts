@@ -168,13 +168,12 @@ export async function fetchInvoiceById(id: string) {
       FROM invoices
       WHERE invoices.id = ${id};
     `;
-
     const invoice = data.rows.map((invoice) => ({
       ...invoice,
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
-    return invoice[0] as InvoiceForm;
+    return invoice[0] as InvoiceForm | any;
   } catch (error) {
     console.error('Database Error:', error);
   }
